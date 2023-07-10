@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.smallMarginLeft {
+    margin-left: 1.5rem;
+}
+
+.container {
+    padding: 1rem 1rem;
+}
+
+#chart {
+    max-width: 380px;
+    margin: 35px auto;
+    padding: 0;
+  }

@@ -1,0 +1,50 @@
+<div>
+  <ui5-bar design="Header">
+    <ui5-title slot="startContent">{{title}}</ui5-title>
+
+    <div class="smallMarginLeft" slot="startContent">
+      <ui5-text>Page ({{currentPage}} of {{pages}})</ui5-text>
+      <ui5-button (click)="onPageChange.emit(currentPage <= 1 ? 1 : currentPage-1)" design="Transparent"
+        icon="sap-icon://navigation-left-arrow" />
+      <ui5-button (click)="onPageChange.emit(currentPage >= pages ? pages : currentPage+1)" design="Transparent"
+        icon="sap-icon://navigation-right-arrow" />
+      <ui5-input *ngIf="isFirstFilterEnabled" (change)="onFirstColumnLookup.emit($event)" class="smallMarginLeft" placeholder="Search by {{columns[0]}}">
+        <ui5-icon  slot="icon" name="search"></ui5-icon>
+      </ui5-input>
+      <ui5-input *ngIf="isSecondFilterEnabled" (change)="onSecondColumnLookup.emit($event)" class="smallMarginLeft" placeholder="Search by {{columns[1]}}">
+        <ui5-icon slot="icon" name="search"></ui5-icon>
+
+      </ui5-input>
+    </div>
+
+    <ui5-button (click)="openSortingDialog()" slot="endContent" design="Transparent"
+      tooltip="Sort items">Sort</ui5-button>
+  </ui5-bar>
+  <ui5-table #customTable>
+    <ng-container *ngFor="let col of columns">
+      <ui5-table-column slot="columns">{{col}}</ui5-table-column>
+    </ng-container>
+
+    <ng-container *ngFor="let item of items">
+      <ui5-table-row *ngIf="item.visible" (click)="onItemSelect(item)">
+        <ng-container *ngFor="let property of itemProperties">
+          <ui5-table-cell>
+            <div>
+              <span><b>{{item[property]}}</b></span>
+            </div>
+          </ui5-table-cell>
+        </ng-container>
+      </ui5-table-row>
+    </ng-container>
+  </ui5-table>
+
+  <ui5-view-settings-dialog #sortingDialog sort-ascending="true" (confirm)="applySorting.emit($event)">
+    <ng-container *ngFor="let property of sortingData">
+      <ui5-sort-item *ngIf="property.selected; else unselected" slot="sortItems" text={{property.name}}
+        selected></ui5-sort-item>
+      <ng-template #unselected>
+        <ui5-sort-item slot="sortItems" text={{property.name}}></ui5-sort-item>
+      </ng-template>
+    </ng-container>
+  </ui5-view-settings-dialog>
+</div>

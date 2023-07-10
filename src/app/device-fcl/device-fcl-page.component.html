@@ -1,0 +1,37 @@
+<ui5-flexible-column-layout #fcl layout="layout" id="fcl">
+    <div slot="startColumn">
+        <section>
+            <device-table (onItemNavigation)="navigateToDevice($event)"></device-table>
+        </section>
+    </div>
+    <div *ngIf="device" slot="midColumn">
+        <div>
+            <custom-table 
+            [title]="title"
+            [items]="data" 
+            [itemProperties]="dataPropertiesToDisplay" 
+            [columns]="columns"    
+            [currentPage]="currentPage" 
+            [pages]="pages"
+            [sortingData]="sortingData"
+            [isSecondFilterEnabled]="false"
+            (onFirstColumnLookup)="onLocationLookup($event)"
+            (applySorting)="applySorting($event)"></custom-table>
+          </div>
+
+          <section class="container">
+            <ui5-title level="H3">{{device.id}}</ui5-title>
+            <ui5-title level="H5">Device Type: {{device.deviceType}}</ui5-title>
+            <br />
+            <div
+                style="display:flex; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap">
+                <div style="display:flex; flex-direction: row; align-items: center;">
+                    <div>
+                        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
+                            [labels]="chartOptions.labels" [responsive]="chartOptions.responsive"></apx-chart>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</ui5-flexible-column-layout>

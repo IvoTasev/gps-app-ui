@@ -1,0 +1,15 @@
+<div>
+  <custom-table 
+  [title]="title"
+  [items]="devices" 
+  [itemProperties]="devicePropertiesToDisplay" 
+  [columns]="columns"    
+  [currentPage]="currentPage" 
+  [pages]="pages"
+  [sortingData]="sortingData"
+  (onPageChange)="onPageChange($event)"
+  (onFirstColumnLookup)="onDeviceIdLookup($event)"
+  (onSecondColumnLookup)="onDeviceTypeLookup($event)"
+  (onItemClick)="onItemClick($event)"
+  (applySorting)="applySorting($event)"></custom-table>
+</div>
